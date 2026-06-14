@@ -95,11 +95,13 @@ function analyzeSalesData(data, options) {
 
     if (!seller) return;
 
-    // Увеличить количество продаж
-    seller.sales_count += 1;
+    if (seller) {
+      // Увеличить количество продаж
+      seller.sales_count += 1;
 
-    // Увеличить общую сумму выручки всех продаж
-    seller.revenue += record.total_amount;
+      // Увеличить общую сумму выручки всех продаж
+      seller.revenue += record.total_amount || 0;
+    }
 
     // Расчёт прибыли для каждого товара
     record.items.forEach(item => {
