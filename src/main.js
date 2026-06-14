@@ -87,10 +87,10 @@ function analyzeSalesData(data, options) {
     const seller = sellerIndex[record.seller_id]; // Продавец
     // Увеличить количество продаж
     if (seller) {
+      // Увеличить количество продаж
       seller.sales_count += 1;
-    }
-    // Увеличить общую сумму выручки всех продаж
-    if (seller.revenue) {
+
+      // Увеличить общую сумму выручки всех продаж
       seller.revenue += record.total_amount;
     }
 
@@ -122,7 +122,7 @@ function analyzeSalesData(data, options) {
 
   // @TODO: Сортировка продавцов по прибыли
   sellerStats.sort((a, b) => b.profit - a.profit);
-  console.log('sellerStats', sellerStats);
+  // console.log('sellerStats', sellerStats);
 
   // @TODO: Назначение премий на основе ранжирования
   sellerStats.forEach((seller, index) => {
