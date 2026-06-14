@@ -49,7 +49,6 @@ function analyzeSalesData(data, options) {
   if (!Array.isArray(data.products) || data.products.length === 0) {
     throw new Error('Некорректные входные данные: отсутствуют товары');
   }
-  // purchase_records может быть пустым – это нормально
   if (!Array.isArray(data.purchase_records)) {
     throw new Error(
       'Некорректные входные данные: purchase_records должен быть массивом'
@@ -61,7 +60,6 @@ function analyzeSalesData(data, options) {
     throw new Error('Опции должны быть объектом');
   }
   const { calculateRevenue, calculateBonus } = options;
-
   if (typeof calculateRevenue !== 'function') {
     throw new Error('calculateRevenue должна быть функцией');
   }
@@ -70,17 +68,14 @@ function analyzeSalesData(data, options) {
   }
 
   // @TODO: Подготовка промежуточных данных для сбора статистики
-  const sellerStats = data.sellers.map(seller =>
-    // Заполним начальными данными
-    ({
-      id: seller.id,
-      name: `${seller.first_name} ${seller.last_name}`,
-      revenue: 0,
-      profit: 0,
-      sales_count: 0,
-      products_sold: {},
-    })
-  );
+  const sellerStats = data.sellers.map(seller => ({
+    id: seller.id,
+    name: `${seller.first_name} ${seller.last_name}`,
+    revenue: 0,
+    profit: 0,
+    sales_count: 0,
+    products_sold: {},
+  }));
   // console.log('sellerStats', sellerStats);
 
   // @TODO: Индексация продавцов и товаров для быстрого доступа
@@ -96,7 +91,6 @@ function analyzeSalesData(data, options) {
 
   // @TODO: Расчет выручки и прибыли для каждого продавца
   data.purchase_records.forEach(record => {
-    // Чек
     const seller = sellerIndex[record.seller_id]; // Продавец
 
     if (!seller) return;
@@ -111,7 +105,7 @@ function analyzeSalesData(data, options) {
     record.items.forEach(item => {
       const product = productIndex[item.sku]; // Товар
 
-      if (!product) return; // если товар не найден – пропускаем
+      if (!product) return;
 
       // Посчитать себестоимость (cost) товара как product.purchase_price, умноженную на количество товаров из чека
       const cost = product.purchase_price * item.quantity;
