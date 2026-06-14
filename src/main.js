@@ -145,7 +145,7 @@ function analyzeSalesData(data, options) {
       .slice(0, 10); // Формируем топ-10 товаров
   });
 
-  // @TODO: Подготовка итоговой коллекции с нужными полями
+  // Итоговая коллекции с нужными полями
   return sellerStats.map(seller => ({
     seller_id: seller.id, // Строка, идентификатор продавца
     name: seller.name, // Строка, имя продавца
