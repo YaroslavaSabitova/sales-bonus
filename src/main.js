@@ -55,18 +55,18 @@ function analyzeSalesData(data, options) {
       products_sold: {},
     })
   );
-  console.log('sellerStats', sellerStats);
+  // console.log('sellerStats', sellerStats);
 
   // @TODO: Индексация продавцов и товаров для быстрого доступа
   const sellerIndex = Object.fromEntries(
     sellerStats.map(item => [item.id, item])
   ); // Ключом будет id, значением — запись из sellerStats
-  console.log('sellerIndex', sellerIndex);
+  // console.log('sellerIndex', sellerIndex);
 
   const productIndex = Object.fromEntries(
     data.products.map(item => [item.sku, item])
   ); // Ключом будет sku, значением — запись из data.products
-  console.log('productIndex', productIndex);
+  // console.log('productIndex', productIndex);
 
   // @TODO: Расчет выручки и прибыли для каждого продавца
   data.purchase_records.forEach(record => {
