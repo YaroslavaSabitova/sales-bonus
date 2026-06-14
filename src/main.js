@@ -57,12 +57,16 @@ function analyzeSalesData(data, options) {
   }
 
   // @TODO: Проверка наличия опций
+  if (typeof options !== 'object' || options === null) {
+    throw new Error('Опции должны быть объектом');
+  }
   const { calculateRevenue, calculateBonus } = options;
-  if (
-    !typeof options === 'object' ||
-    !typeof calculateRevenue === 'function'
-  ) {
-    throw new Error('Чего-то не хватает');
+
+  if (typeof calculateRevenue !== 'function') {
+    throw new Error('calculateRevenue должна быть функцией');
+  }
+  if (typeof calculateBonus !== 'function') {
+    throw new Error('calculateBonus должна быть функцией');
   }
 
   // @TODO: Подготовка промежуточных данных для сбора статистики
